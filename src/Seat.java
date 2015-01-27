@@ -8,13 +8,15 @@ public class Seat{
     private char seatLetter; // a,b,c
     private Airplane airplane; //
     private Airline airline;
+    private boolean occupied;
 
-    public Seat(String seatType, int seatRow, char seatLetter, Airplane airplane, Airline airline) {
+    public Seat(String seatType, int seatRow, char seatLetter, Airplane airplane, Airline airline, boolean occupied) {
         this.seatType = seatType;
         this.seatRow = seatRow;
         this.seatLetter = seatLetter;
         this.airplane = airplane;
         this.airline = airline;
+        this.occupied = occupied;
     }
 
     public String getSeatType() {
@@ -55,5 +57,13 @@ public class Seat{
 
     public void setAirline(Airline airline) {
         this.airline = airline;
+    }
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 }

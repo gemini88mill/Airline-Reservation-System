@@ -4,15 +4,15 @@
 public class Airplane {
 
     private String planeType;
-    private String numberOfSeats;
-    private boolean mealservice;
+    private int numberOfSeats;
+    private boolean mealService;
     private Airline airline;
 
-    public Airplane(Airline airline, String planeType, String numberOfSeats, boolean mealservice) {
+    public Airplane(Airline airline, String planeType, int numberOfSeats, boolean mealService) {
         this.airline = airline;
         this.planeType = planeType;
         this.numberOfSeats = numberOfSeats;
-        this.mealservice = mealservice;
+        this.mealService = mealService;
     }
 
     public String getPlaneType() {
@@ -23,20 +23,20 @@ public class Airplane {
         this.planeType = planeType;
     }
 
-    public String getNumberOfSeats() {
+    public int getNumberOfSeats() {
         return numberOfSeats;
     }
 
-    public void setNumberOfSeats(String numberOfSeats) {
+    public void setNumberOfSeats(int numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public boolean isMealservice() {
-        return mealservice;
+    public boolean isMealService() {
+        return mealService;
     }
 
-    public void setMealservice(boolean mealservice) {
-        this.mealservice = mealservice;
+    public void setMealService(boolean mealService) {
+        this.mealService = mealService;
     }
 
     public Airline getAirline() {

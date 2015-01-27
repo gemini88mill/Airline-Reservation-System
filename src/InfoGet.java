@@ -12,7 +12,7 @@ public class InfoGet {
         InfoGet ig = new InfoGet();
         ig.setGate();
 
-        
+
 
     }
 

@@ -8,29 +8,45 @@ package com.company.userdefinedValues;
  */
 public class Airplane {
 
-    private Passenger[] passengers;
-    private Seat[] seats;
-    private String airplaneName;
+    private final int numberOfClasses;
+    private final Seat[] seats;
+    private final String airplaneName;
     private String airplaneType;
 
-    public Airplane(Passenger[] passengers, Seat[] seats, String airplaneName, String airplaneType) {
-        this.passengers = passengers;
-        this.seats = seats;
-        this.airplaneName = airplaneName;
-        this.airplaneType = airplaneType;
+    public static class Builder{
+
+        //required values
+        private final String name;
+        private final Seat[] seat;
+
+        //optional values
+        private int numberOfClasses = 0;
+
+
+        public Builder(String name, Seat[] seat) {
+            this.name = name;
+            this.seat = seat;
+        }
+
+        public Builder numberOfClasses(int val) {
+            numberOfClasses = val;
+            return this;
+        }
+
+        public Airplane build() {
+            return new Airplane(this);
+        }
     }
 
-    public Airplane() {
-        //blank constructor
+    private Airplane(Builder builder) {
+        seats = builder.seat;
+        airplaneName = builder.name;
+        numberOfClasses = builder.numberOfClasses;
+
     }
 
-    public Passenger[] getPassengers() {
-        return passengers;
-    }
 
-    public void setPassengers(Passenger[] passengers) {
-        this.passengers = passengers;
-    }
+
 
     public Seat[] getSeats() {
         return seats;

@@ -32,10 +32,14 @@ public class IO {
         Passenger passenger = new Passenger(uc.getName(), uc.getClassPreference(), uc.getSeatPreference(),
                 "AC707 (String Literal)", null);
 
-        //select flight information
+        //create Airplane information
+        Airplane Boeing737 = new Airplane.Builder("737", new Seat[140]).numberOfClasses(0).build();
 
         //create flight information.
-        Flight myFlight = new Flight(new FlightPath(), new Airplane());
+        Flight myFlight = new Flight(new FlightPath(), Boeing737);
+
+        //select flight information
+
 
         //todo: create flights details for passenger (possibly with a master file).
 
@@ -48,7 +52,7 @@ public class IO {
         DateFormat dfm = new SimpleDateFormat("YYYY-MM-dd HH:mm");
         System.out.println(dfm.format(flightTime.getTime()));
 
-        Airplane Boeing777 = new Airplane(new Passenger[300], new Seat[300], "777", "777");
+        //Airplane Boeing777 = new Airplane(new Passenger[300], new Seat[300], "777", "777");
 
 
 

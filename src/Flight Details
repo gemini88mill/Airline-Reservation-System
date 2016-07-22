@@ -1,0 +1,33 @@
+Flight Details (Rough)
+
+Daily Flights - MIA to ATL
+
+Time    FLightNo.   AircraftType
+7:00    100         737
+9:00    101         737
+11:00   102         737
+13:00   103         737
+15:00   104         737
+17:00   105         737
+
+Daily Flights - MIA to TPA
+
+Time    FLightNo.   AircraftType
+13:00   201         737
+17:00   202         737
+19:00   203         737
+
+Daily Flights - TPA to MIA
+
+Time    FLightNo.   AircraftType
+17:00   301         737
+19:00   302         737
+21:00   303         737
+
+Time    FLightNo.   AircraftType
+9:00    400         737
+11:00   401         737
+13:00   402         737
+15:00   403         737
+17:00   404         737
+19:00   405         737

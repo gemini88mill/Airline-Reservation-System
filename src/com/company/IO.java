@@ -37,7 +37,7 @@ public class IO {
         //create flight information.
         Flight myFlight = new Flight(new FlightPath(), new Airplane());
 
-        
+        //todo: create flights details for passenger (possibly with a master file).
 
         //---------------------------------------------------------------
 

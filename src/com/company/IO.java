@@ -5,11 +5,8 @@ import com.company.userdefinedValues.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Scanner;
-import java.util.spi.CalendarNameProvider;
 
 public class IO {
 
@@ -32,16 +29,19 @@ public class IO {
         Passenger passenger = new Passenger(uc.getName(), uc.getClassPreference(), uc.getSeatPreference(),
                 "AC707 (String Literal)", null);
 
-        //create Airplane information
-        Airplane Boeing737 = new Airplane.Builder("737", new Seat[140]).numberOfClasses(0).build();
 
-        //create flight information.
-        Flight myFlight = new Flight(new FlightPath(), Boeing737);
+        //--------------------------------------------------------------------------------------------------------------
+        //Database part of the program.
+        /*Pull information from mySql Database
+        *   -Flight Path information
+        *   -Fleet Information
+        *   -Seat Descriptions*/
+        //-------------------------------------------------------------------------------------------------------------
 
-        //select flight information
+        //place passenger on board, save information to mySql. 
 
 
-        //todo: create flights details for passenger (possibly with a master file).
+
 
         //---------------------------------------------------------------
 

@@ -13,52 +13,38 @@ import java.util.Date;
  */
 public class FlightPath {
 
-    private Date flightStart;
-    private Date flightEnd;
-    private String flightDestinationLocation;
-    private String flightArrivalLocation;
+    private final String departureLocation;
+    private final String arrivalLocation;
+    private final int flightTimeinHours;
+
+    public static class Builder{
+        //required perams
+        private final String departureLocation;
+        private final String arrivalLocation;
+
+        //optional perameters
+        private int flightTimeinHours = 1;
+
+        public Builder(String departureLocation, String arrivalLocation) {
+            this.departureLocation = departureLocation;
+            this.arrivalLocation = arrivalLocation;
+        }
+
+        public Builder flightTimeinHours(int val){
+            flightTimeinHours = val;
+            return this;
+        }
+
+        public FlightPath build(){
+            return new FlightPath(this);
+        }
 
 
-    public FlightPath(Date flightStart, Date flightEnd, String flightDestinationLocation, String flightArrivalLocation) {
-        this.flightStart = flightStart;
-        this.flightEnd = flightEnd;
-        this.flightDestinationLocation = flightDestinationLocation;
-        this.flightArrivalLocation = flightArrivalLocation;
     }
 
-    public FlightPath() {
-        //blank constructor
-    }
-
-    public Date getFlightStart() {
-        return flightStart;
-    }
-
-    public void setFlightStart(Date flightStart) {
-        this.flightStart = flightStart;
-    }
-
-    public Date getFlightEnd() {
-        return flightEnd;
-    }
-
-    public void setFlightEnd(Date flightEnd) {
-        this.flightEnd = flightEnd;
-    }
-
-    public String getFlightDestinationLocation() {
-        return flightDestinationLocation;
-    }
-
-    public void setFlightDestinationLocation(String flightDestinationLocation) {
-        this.flightDestinationLocation = flightDestinationLocation;
-    }
-
-    public String getFlightArrivalLocation() {
-        return flightArrivalLocation;
-    }
-
-    public void setFlightArrivalLocation(String flightArrivalLocation) {
-        this.flightArrivalLocation = flightArrivalLocation;
+    private FlightPath(Builder builder){
+        departureLocation = builder.departureLocation;
+        arrivalLocation = builder.arrivalLocation;
+        flightTimeinHours = builder.flightTimeinHours;
     }
 }

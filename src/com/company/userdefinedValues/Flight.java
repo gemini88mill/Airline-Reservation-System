@@ -2,6 +2,8 @@ package com.company.userdefinedValues;
 
 import com.company.IO;
 
+import java.util.Date;
+
 /**
  * Flight - A class defining all the aspects of the Flight of a particular airline company
  *
@@ -18,11 +20,29 @@ public class Flight {
     private FlightPath flightPath;
     private Airplane airplane;
 
+    //new elements from flight
+
+    //flight needs to call with the arguments, where is the flight going, when is it leaving, can when can the flight
+    //come back
+
+    /*For example, when declaring a flight, the flight will be defined the MIA to ATL flight, FLight needs to know what
+    * aircraft is getting on this flight, the flight path, and the times that this flight is leaving throughout a 24
+    * hour period.
+    *
+    * from the main method, if we were to declare Flight(String departureLocation, String ArrivalLocation) it doesn't
+    * need the declaration of the flight */
+    private Date departureTime;
+
     //-------------------------------------Constructor------------------------------------------------------------------
     public Flight(FlightPath flightPath, Airplane airplane) {
         this.flightPath = flightPath;
         this.airplane = airplane;
     }
+
+    public Flight(FlightPath flightPath) {
+        this.flightPath = flightPath;
+    }
+
     //------------------------------------------------------------------------------------------------------------------
 
 

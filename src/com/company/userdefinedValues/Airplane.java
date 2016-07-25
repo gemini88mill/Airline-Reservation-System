@@ -45,23 +45,16 @@ public class Airplane {
 
     }
 
-
-
+    public int getNumberOfClasses() {
+        return numberOfClasses;
+    }
 
     public Seat[] getSeats() {
         return seats;
     }
 
-    public void setSeats(Seat[] seats) {
-        this.seats = seats;
-    }
-
     public String getAirplaneName() {
         return airplaneName;
-    }
-
-    public void setAirplaneName(String airplaneName) {
-        this.airplaneName = airplaneName;
     }
 
     public String getAirplaneType() {

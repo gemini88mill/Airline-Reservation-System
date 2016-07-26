@@ -1,0 +1,7 @@
+Flight Path Sheet
+
+Departure_Location 	Arrival_Location	Departure Time		Arrival Time		Time Zone		Departure Airport Code	 
+Miami, Florida, USA	Atlanta, GA, USA 	7:00			9:00			EST			MIA
+Miami, FLorida, USA 	Tampa, FL, USA		9:00			10:00			EST			MIA
+Miami, Florida, USA	New York, NY, USA	11:00			14:00			ESt			MIA
+

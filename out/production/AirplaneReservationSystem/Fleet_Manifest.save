@@ -1,0 +1,6 @@
+Airplane ID	Model		Range(km)	Seat Capacity	First Class	Business Class
+000-HHH		Boeing737-800	10000		140		NO		NO
+001-HHH		Boeing737-800	10000		140		NO		YES
+002-HHH		Boeing747-8	9800		410		YES		YES
+003-HHH		Boeing747-8	9800		605		NO		NO
+004-HHH		Boeing787-8	15000		335		YES		YES

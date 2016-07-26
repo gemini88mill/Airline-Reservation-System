@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.userdefinedValues.*;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,11 +24,11 @@ public class IO {
         //Chronology
 
         //Enter User information
-        uc = io.inputField(uc);
+        //uc = io.inputField(uc);
 
         //get send user credentials to classes
-        Passenger passenger = new Passenger(uc.getName(), uc.getClassPreference(), uc.getSeatPreference(),
-                "AC707 (String Literal)", null);
+        //Passenger passenger = new Passenger(uc.getName(), uc.getClassPreference(), uc.getSeatPreference(),
+         //       "AC707 (String Literal)", null);
 
 
         //--------------------------------------------------------------------------------------------------------------
@@ -36,9 +37,20 @@ public class IO {
         *   -Flight Path information
         *   -Fleet Information
         *   -Seat Descriptions*/
+
+        MySQLHandler sqlHandler = new MySQLHandler();
+
+        String table = "Fleet_Manifest";
+        String function = "view";
+        try {
+            sqlHandler.connect(table, function);
+        } catch (ClassNotFoundException | SQLException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+
         //-------------------------------------------------------------------------------------------------------------
 
-        //place passenger on board, save information to mySql. 
+        //place passenger on board, save information to mySql.
 
 
 
@@ -59,7 +71,7 @@ public class IO {
         //Flight flight = new Flight(MiaToAtl, Boeing777);
         //flight.enterFlightInformation(passenger);
 
-        passenger.viewFromClass(); //good check out //
+        //passenger.viewFromClass(); //good check out //
 
 
 

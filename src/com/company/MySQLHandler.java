@@ -55,24 +55,31 @@ public class MySQLHandler {
             String newInput = io.lineInput();
             connect(newInput, function);
         }
+
+        con.close();
+
     }
 
     public void table_add(){
         System.out.println("in add");
+        //create add query
 
     }
 
     public void table_edit(){
         System.out.println("in edit");
+        //create edit query
     }
 
     public void table_remove(){
         System.out.println("in remove");
+        //create remove query
     }
 
     //debug only
     public void table_view(){
         System.out.println("in view");
+        //create view
     }
 
 

@@ -82,9 +82,6 @@ public class MySQLHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        //create add query
-
     }
 
     public void table_edit(String table, Statement statement, Connection con){
@@ -92,12 +89,14 @@ public class MySQLHandler {
         try {
             statement = con.createStatement();
 
-            String sql;
+            String sqlStmt = "UPDATE " + table + " SET " + "Airplane_ID = '000-HHH' WHERE Airplane_ID = '123-HHH' ";
+
+            //todo make editing more powerful, or just do a delete then re-add
+
+            statement.executeUpdate(sqlStmt);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        //create edit query
     }
 
     public void table_remove(String table, Statement statement, Connection con){

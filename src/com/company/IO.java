@@ -41,7 +41,10 @@ public class IO {
         MySQLHandler sqlHandler = new MySQLHandler();
 
         String table = "Fleet_Manifest";
-        String function = "add";
+        String sqlValueToChange = "Airplane_ID";
+        String valueTomark = "Airplane_ID";
+
+        String function = "edit";
 
         String sqlValuesFleet_Manifest = "'111-HHH',  '747-8', 9800, 400, 1, 1";
 

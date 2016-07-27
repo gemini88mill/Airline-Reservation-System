@@ -44,7 +44,7 @@ public class IO {
         String sqlValueToChange = "Airplane_ID";
         String valueTomark = "Airplane_ID";
 
-        String function = "edit";
+        String function = "remove";
 
         String sqlValuesFleet_Manifest = "'111-HHH',  '747-8', 9800, 400, 1, 1";
 

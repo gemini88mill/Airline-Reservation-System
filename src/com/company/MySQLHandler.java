@@ -101,6 +101,17 @@ public class MySQLHandler {
 
     public void table_remove(String table, Statement statement, Connection con){
         System.out.println("in remove");
+
+        try {
+            statement = con.createStatement();
+
+            String sqlStmt = "DELETE FROM " + table + " WHERE " + " Airplane_ID = '000-000'";
+
+            statement.executeUpdate(sqlStmt);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         //create remove query
     }
 

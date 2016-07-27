@@ -41,9 +41,12 @@ public class IO {
         MySQLHandler sqlHandler = new MySQLHandler();
 
         String table = "Fleet_Manifest";
-        String function = "view";
+        String function = "add";
+
+        String sqlValuesFleet_Manifest = "'111-HHH',  '747-8', 9800, 400, 1, 1";
+
         try {
-            sqlHandler.connect(table, function);
+            sqlHandler.connect(table, function, sqlValuesFleet_Manifest);
         } catch (ClassNotFoundException | SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }

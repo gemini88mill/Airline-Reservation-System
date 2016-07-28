@@ -1,9 +1,6 @@
 package com.company;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by raphael on 7/24/16.
@@ -31,7 +28,7 @@ public class MySQLHandler {
         if(table.equals(RECOGNIZED_TABLES[0]) || (table.equals(RECOGNIZED_TABLES[1]) ||
                 table.equals(RECOGNIZED_TABLES[2]) || table.equals(RECOGNIZED_TABLES[3]))) {
             //stuff
-            System.out.println("this if has worked");
+            //System.out.println("this if has worked");
 
             switch(function){
                 case "add":
@@ -67,10 +64,10 @@ public class MySQLHandler {
     /**
      * table_add() method, adds values to table in database based on direction of the arguments table (table name),
      * and sqlValues(String) in this case FleetManifest. Main table used would be Passenger Manifest.
-     * @param table
-     * @param con
-     * @param sqlValues
-     * @param statement
+     * @param table String
+     * @param con Connection
+     * @param sqlValues String
+     * @param statement Statement
      */
     public void table_add(String table, Connection con, String sqlValues, Statement statement){
         System.out.println("in add");
@@ -84,6 +81,12 @@ public class MySQLHandler {
         }
     }
 
+    /**
+     * table_edit() - method that allows for editing of database data
+     * @param table String
+     * @param statement Statement
+     * @param con Connection
+     */
     public void table_edit(String table, Statement statement, Connection con){
         System.out.println("in edit");
         try {
@@ -99,6 +102,14 @@ public class MySQLHandler {
         }
     }
 
+    /**
+     * table_remove() - method that allows for removal of data from database tables, requires name of table
+     * (String table), statement (open ended statement from java.mysql), and a connection to the database
+     * (Connection con)
+     * @param table String
+     * @param statement Statement
+     * @param con Connection
+     */
     public void table_remove(String table, Statement statement, Connection con){
         System.out.println("in remove");
 
@@ -116,9 +127,28 @@ public class MySQLHandler {
     }
 
     //debug only
+
+    /**
+     * table_view() - method that allows for the viewing of the table, useful for viewing passenger manifest along with
+     * other table viewing properties. Requires table being viewed (String Table), open statement (Statement statement)
+     * and database connection.
+     * @param table String
+     * @param statement Statement
+     * @param con Connection
+     */
     public void table_view(String table, Statement statement, Connection con){
         System.out.println("in view");
         //create view
+
+        try {
+            statement = con.createStatement();
+
+            String sqlStmt = "SELECT * FROM " + table;
+
+            ResultSet resultSet = statement.executeQuery(sqlStmt);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

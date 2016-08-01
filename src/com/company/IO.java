@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.userdefinedValues.*;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -39,18 +40,23 @@ public class IO {
         *   -Seat Descriptions
         *   -Passenger Manifest*/
 
+        Passenger passenger = new Passenger("Raphael", "Miller", "AB0123456", null, null);
+
         MySQLHandler sqlHandler = new MySQLHandler();
 
-        String table = "Fleet_Manifest";
+        String table = "Passenger_Manifest";
         String sqlValueToChange = "Airplane_ID";
         String valueTomark = "Airplane_ID";
 
-        String function = "view";
+        String function = "add";
 
-        String sqlValuesFleet_Manifest = "'111-HHH',  '747-8', 9800, 400, 1, 1";
+        //String sqlValuesFleet_Manifest = "'111-HHH',  '747-8', 9800, 400, 1, 1";
+        PreparedStatement insertPassenger = null;
+
+
 
         try {
-            sqlHandler.connect(table, function, sqlValuesFleet_Manifest);
+            sqlHandler.connect(table, function, passenger);
         } catch (ClassNotFoundException | SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }

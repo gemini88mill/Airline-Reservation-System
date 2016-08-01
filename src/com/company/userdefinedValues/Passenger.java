@@ -6,28 +6,29 @@ package com.company.userdefinedValues;
 public class Passenger {
 
     //information on passenger
-    private String passengerName;
-    private String passengerPreferredClass;
-    private String passengerPreferredSeatType;
-    private String passengerFlight;
-    private String passengerSeatAssignment;
 
     private String passengerDepartureLocation;
     private String passengerArrivalLocation;
 
-    //passenger constructor
-    public Passenger(String passengerName, String passengerPreferredClass, String passengerPreferredSeatType,
-                     String passengerFlight, String passengerSeatAssignment) {
-        this.passengerName = passengerName;
-        this.passengerPreferredClass = passengerPreferredClass;
-        this.passengerPreferredSeatType = passengerPreferredSeatType;
-        this.passengerFlight = passengerFlight;
-        this.passengerSeatAssignment = passengerSeatAssignment;
-    }
+    private String passengerFirstName;
+    private String passengerLastName;
+    private String passengerPassportNumber;
+    private String passengerSeatAssignment;
+    private String additonalRequests;
 
+    //passenger constructor
     public Passenger(String passengerDepartureLocation, String passengerArrivalLocation) {
         this.passengerDepartureLocation = passengerDepartureLocation;
         this.passengerArrivalLocation = passengerArrivalLocation;
+    }
+
+    public Passenger(String passengerFirstName, String passengerLastName, String passengerPassportNumber,
+                     String passengerSeatAssignment, String additionalRequests) {
+        this.passengerFirstName = passengerFirstName;
+        this.passengerLastName = passengerLastName;
+        this.passengerPassportNumber = passengerPassportNumber;
+        this.passengerSeatAssignment = passengerSeatAssignment;
+        this.additonalRequests = additionalRequests;
     }
 
     public void sendToSQL(){
@@ -36,54 +37,7 @@ public class Passenger {
 
     public void viewFromClass(){
         //allows debugging of variables
-        System.out.println("From Passenger Class:");
-        System.out.println(getPassengerName());
-        System.out.println(getPassengerFlight());
-        System.out.println(getPassengerPreferredClass());
-        System.out.println(getPassengerPreferredSeatType());
-        System.out.println(getPassengerSeatAssignment());
-        System.out.println(getPassengerDepartureLocation());
-        System.out.println(getPassengerArrivalLocation());
-    }
 
-    public String getPassengerName() {
-        return passengerName;
-    }
-
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
-    }
-
-    public String getPassengerPreferredClass() {
-        return passengerPreferredClass;
-    }
-
-    public void setPassengerPreferredClass(String passengerPreferredClass) {
-        this.passengerPreferredClass = passengerPreferredClass;
-    }
-
-    public String getPassengerPreferredSeatType() {
-        return passengerPreferredSeatType;
-    }
-
-    public void setPassengerPreferredSeatType(String passengerPreferredSeatType) {
-        this.passengerPreferredSeatType = passengerPreferredSeatType;
-    }
-
-    public String getPassengerFlight() {
-        return passengerFlight;
-    }
-
-    public void setPassengerFlight(String passengerFlight) {
-        this.passengerFlight = passengerFlight;
-    }
-
-    public String getPassengerSeatAssignment() {
-        return passengerSeatAssignment;
-    }
-
-    public void setPassengerSeatAssignment(String passengerSeatAssignment) {
-        this.passengerSeatAssignment = passengerSeatAssignment;
     }
 
     public String getPassengerDepartureLocation() {
@@ -100,5 +54,45 @@ public class Passenger {
 
     public void setPassengerArrivalLocation(String passengerArrivalLocation) {
         this.passengerArrivalLocation = passengerArrivalLocation;
+    }
+
+    public String getPassengerFirstName() {
+        return passengerFirstName;
+    }
+
+    public void setPassengerFirstName(String passengerFirstName) {
+        this.passengerFirstName = passengerFirstName;
+    }
+
+    public String getPassengerLastName() {
+        return passengerLastName;
+    }
+
+    public void setPassengerLastName(String passengerLastName) {
+        this.passengerLastName = passengerLastName;
+    }
+
+    public String getPassengerPassportNumber() {
+        return passengerPassportNumber;
+    }
+
+    public void setPassengerPassportNumber(String passengerPassportNumber) {
+        this.passengerPassportNumber = passengerPassportNumber;
+    }
+
+    public String getPassengerSeatAssignment() {
+        return passengerSeatAssignment;
+    }
+
+    public void setPassengerSeatAssignment(String passengerSeatAssignment) {
+        this.passengerSeatAssignment = passengerSeatAssignment;
+    }
+
+    public String getAdditonalRequests() {
+        return additonalRequests;
+    }
+
+    public void setAdditonalRequests(String additonalRequests) {
+        this.additonalRequests = additonalRequests;
     }
 }

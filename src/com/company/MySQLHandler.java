@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.userdefinedValues.Passenger;
+
 import java.sql.*;
 
 /**
@@ -14,25 +16,29 @@ public class MySQLHandler {
     private final String PASSWORD = "jarvis";
     private final String URL = "jdbc:mysql://localhost:3306/";
 
-    private final String[] RECOGNIZED_TABLES = {"Fleet_Manifest", "Flight_Path", "Seat_Information"};
+    private final String[] RECOGNIZED_TABLES = {"Fleet_Manifest", "Flight_Path", "Seat_Information",
+            "Passenger_Manifest"};
 
 
-    public void connect(String table, String function, String sqlValuesFleet_Manifest)
+    public void connect(String table, String function, Passenger sqlValuesPassenger_Manifest)
             throws ClassNotFoundException, SQLException, IllegalAccessException, InstantiationException {
         Class.forName("com.mysql.jdbc.Driver");
 
         Connection con = DriverManager.getConnection(URL + DATABASE, USERNAME, PASSWORD);
         Statement statement = con.createStatement();
 
+        PreparedStatement stmt = null;
+
         //condition for table selection.
         if(table.equals(RECOGNIZED_TABLES[0]) || (table.equals(RECOGNIZED_TABLES[1]) ||
-                table.equals(RECOGNIZED_TABLES[2]) || table.equals(RECOGNIZED_TABLES[3]))) {
+                (table.equals(RECOGNIZED_TABLES[2]) || (table.equals(RECOGNIZED_TABLES[3])
+                        || (table.equals(RECOGNIZED_TABLES[4])))))) {
             //stuff
             //System.out.println("this if has worked");
 
             switch(function){
                 case "add":
-                    table_add(table, con, sqlValuesFleet_Manifest, statement);
+                    table_add(table, con, sqlValuesPassenger_Manifest, statement, stmt);
                     break;
                 case "edit":
                     table_edit(table, statement, con);
@@ -52,7 +58,7 @@ public class MySQLHandler {
             IO io = new IO();
 
             String newInput = io.lineInput();
-            connect(newInput, function, sqlValuesFleet_Manifest);
+            connect(newInput, function, sqlValuesPassenger_Manifest);
         }
 
         con.close();
@@ -68,14 +74,33 @@ public class MySQLHandler {
      * @param con Connection
      * @param sqlValues String
      * @param statement Statement
+     * @param stmt
      */
-    public void table_add(String table, Connection con, String sqlValues, Statement statement){
+    public void table_add(String table, Connection con, Passenger sqlValues, Statement statement,
+                          PreparedStatement stmt){
         System.out.println("in add");
 
         try {
-            statement = con.createStatement();
+            String insertStatement = "INSERT INTO "
+                    + table
+                    + " (First_Name, Last_Name, Passport_Number, Seat_Assignment, Additional_Request) VALUES"
+                    + "(?,?,?,?,?)";
 
-            statement.executeUpdate("INSERT INTO " + table + " VALUES ("+ sqlValues +")");
+            stmt = con.prepareStatement(insertStatement);
+            stmt.setString(1, sqlValues.getPassengerFirstName());
+            stmt.setString(2, sqlValues.getPassengerLastName());
+            stmt.setString(3, sqlValues.getPassengerPassportNumber());
+            stmt.setString(4, sqlValues.getPassengerSeatAssignment());
+            stmt.setString(5, sqlValues.getAdditonalRequests());
+
+            stmt.executeUpdate();
+
+            //statement = con.createStatement();
+
+
+            System.out.println(sqlValues.getPassengerFirstName());
+
+            //statement.executeUpdate("INSERT INTO " + table + " VALUES ("+ sqlValues +")");
         } catch (SQLException e) {
             e.printStackTrace();
         }

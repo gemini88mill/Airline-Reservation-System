@@ -48,10 +48,17 @@ public class IO {
         String sqlValueToChange = "Airplane_ID";
         String valueTomark = "Airplane_ID";
 
-        String function = "add";
+        String function = "edit";
 
         //String sqlValuesFleet_Manifest = "'111-HHH',  '747-8', 9800, 400, 1, 1";
         PreparedStatement insertPassenger = null;
+
+        //todo what happens when the passenger is inserted
+
+        /*Once passenger is inserted to the table the passenger then should be in a query for unassigned passengers
+        * once the passenger is listed, then the passenger will be given a seat on the plane, once confirmed seat,
+        * the passenger table, and the seat table for that airplane will be updated with a unique tag that will connect
+        * the two tables together. Proceed to next step of timing and flight path maintenance*/
 
 
 

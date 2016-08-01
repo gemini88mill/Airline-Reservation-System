@@ -11,13 +11,19 @@ import java.sql.*;
  */
 public class MySQLHandler {
 
+    //------------------------------------------------------------------
+
     private final String DATABASE = "Raphael_Airlines";
     private final String USERNAME = "java";
     private final String PASSWORD = "jarvis";
     private final String URL = "jdbc:mysql://localhost:3306/";
 
+    //------------------------------------------------------------------
+
     private final String[] RECOGNIZED_TABLES = {"Fleet_Manifest", "Flight_Path", "Seat_Information",
             "Passenger_Manifest"};
+
+    private final String COLUMNS_PASSENGER = "(First_Name, Last_Name, Passport_Number, Seat_Assignment, Additional_Request) ";
 
 
     public void connect(String table, String function, Passenger sqlValuesPassenger_Manifest)
@@ -38,10 +44,10 @@ public class MySQLHandler {
 
             switch(function){
                 case "add":
-                    table_add(table, con, sqlValuesPassenger_Manifest, statement, stmt);
+                    table_add(table, con, sqlValuesPassenger_Manifest);
                     break;
                 case "edit":
-                    table_edit(table, statement, con);
+                    table_edit(table, statement, con, sqlValuesPassenger_Manifest);
                     break;
                 case "remove":
                     table_remove(table, statement, con);
@@ -73,17 +79,16 @@ public class MySQLHandler {
      * @param table String
      * @param con Connection
      * @param sqlValues String
-     * @param statement Statement
-     * @param stmt
      */
-    public void table_add(String table, Connection con, Passenger sqlValues, Statement statement,
-                          PreparedStatement stmt){
+    public void table_add(String table, Connection con, Passenger sqlValues){
         System.out.println("in add");
+        PreparedStatement stmt;
 
         try {
             String insertStatement = "INSERT INTO "
                     + table
-                    + " (First_Name, Last_Name, Passport_Number, Seat_Assignment, Additional_Request) VALUES"
+                    + COLUMNS_PASSENGER
+                    + " VALUES"
                     + "(?,?,?,?,?)";
 
             stmt = con.prepareStatement(insertStatement);
@@ -95,12 +100,6 @@ public class MySQLHandler {
 
             stmt.executeUpdate();
 
-            //statement = con.createStatement();
-
-
-            System.out.println(sqlValues.getPassengerFirstName());
-
-            //statement.executeUpdate("INSERT INTO " + table + " VALUES ("+ sqlValues +")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,15 +110,24 @@ public class MySQLHandler {
      * @param table String
      * @param statement Statement
      * @param con Connection
+     * @param sqlValuesPassenger_Manifest
      */
-    public void table_edit(String table, Statement statement, Connection con){
+    public void table_edit(String table, Statement statement, Connection con, Passenger sqlValuesPassenger_Manifest){
         System.out.println("in edit");
         try {
             statement = con.createStatement();
+            String marker;
 
-            String sqlStmt = "UPDATE " + table + " SET " + "Airplane_ID = '000-HHH' WHERE Airplane_ID = '123-HHH' ";
+            //get information from sql server
+
+            String sqlStmt = "UPDATE "
+                    + table
+                    + " SET "
+                    + "Airplane_ID = '000-HHH'"
+                    +" WHERE Airplane_ID = '123-HHH' ";
 
             //todo make editing more powerful, or just do a delete then re-add
+            //todo update table edit with preparedStatement method. Along with other methods
 
             statement.executeUpdate(sqlStmt);
         } catch (SQLException e) {

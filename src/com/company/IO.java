@@ -36,7 +36,8 @@ public class IO {
         /*Pull information from mySql Database
         *   -Flight Path information
         *   -Fleet Information
-        *   -Seat Descriptions*/
+        *   -Seat Descriptions
+        *   -Passenger Manifest*/
 
         MySQLHandler sqlHandler = new MySQLHandler();
 
@@ -55,6 +56,7 @@ public class IO {
         }
 
         //-------------------------------------------------------------------------------------------------------------
+        //done with my sql, passenger information is placed in mysql for saving,
 
         //place passenger on board, save information to mySql.
 

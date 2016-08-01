@@ -151,5 +151,9 @@ public class MySQLHandler {
         }
     }
 
+    public void table_search(String table, Statement statement, Connection con){
+        System.out.println("in search");
+    }
+
 
 }

@@ -219,14 +219,21 @@ public class MySQLHandler {
             String sqlStmt = "SELECT * FROM " + table;
 
             ResultSet resultSet = statement.executeQuery(sqlStmt);
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+
+            int columnNo = rsmd.getColumnCount();
 
             System.out.println("Departure Location: " + passenger.getPassengerDepartureLocation());
             System.out.println("Arrival Location: " + passenger.getPassengerArrivalLocation());
 
-            for(int x = 0; x < resultSet.getMetaData().getColumnCount(); x++){
-                System.out.println(resultSet.getMetaData().getColumnName(x));
-                System.out.println("\t" + resultSet.getObject(x));
+            while (resultSet.next()) {
+                for (int x = 1; x < columnNo; x++) {
+                    System.out.print(rsmd.getColumnName(x) + ":\t");
+                    System.out.println("\t\t" + resultSet.getString(x));
+                }
+                System.out.println();
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

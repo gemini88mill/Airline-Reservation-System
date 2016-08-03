@@ -15,6 +15,7 @@ public class Passenger {
     private String passengerPassportNumber;
     private String passengerSeatAssignment;
     private String additonalRequests;
+    private String passengerFlightAssignment;
 
     //passenger constructor
     public Passenger(String passengerDepartureLocation, String passengerArrivalLocation) {
@@ -23,12 +24,13 @@ public class Passenger {
     }
 
     public Passenger(String passengerFirstName, String passengerLastName, String passengerPassportNumber,
-                     String passengerSeatAssignment, String additionalRequests) {
+                     String passengerSeatAssignment, String additionalRequests, String passengerFlightAssignment) {
         this.passengerFirstName = passengerFirstName;
         this.passengerLastName = passengerLastName;
         this.passengerPassportNumber = passengerPassportNumber;
         this.passengerSeatAssignment = passengerSeatAssignment;
         this.additonalRequests = additionalRequests;
+        this.passengerFlightAssignment = passengerFlightAssignment;
     }
 
     public void sendToSQL(){
@@ -94,5 +96,13 @@ public class Passenger {
 
     public void setAdditonalRequests(String additonalRequests) {
         this.additonalRequests = additonalRequests;
+    }
+
+    public String getPassengerFlightAssignment() {
+        return passengerFlightAssignment;
+    }
+
+    public void setPassengerFlightAssignment(String passengerFlightAssignment) {
+        this.passengerFlightAssignment = passengerFlightAssignment;
     }
 }

@@ -23,17 +23,33 @@ public class MySQLHandler {
     private final String[] RECOGNIZED_TABLES = {"Fleet_Manifest", "Flight_Path", "Seat_Information",
             "Passenger_Manifest"};
 
-    private final String COLUMNS_PASSENGER = "(First_Name, Last_Name, Passport_Number, Seat_Assignment, Additional_Request) ";
+    private final String COLUMNS_PASSENGER =
+            "(First_Name, Last_Name, Passport_Number, Seat_Assignment, Additional_Request) ";
 
 
-    public void connect(String table, String function, Passenger sqlValuesPassenger_Manifest)
+    public void connect(String table, String function, Passenger sqlValues, String marker,
+                        int markerColumnTag)
             throws ClassNotFoundException, SQLException, IllegalAccessException, InstantiationException {
-        Class.forName("com.mysql.jdbc.Driver");
 
+        //connects to MySQL Database
+        Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(URL + DATABASE, USERNAME, PASSWORD);
         Statement statement = con.createStatement();
 
         PreparedStatement stmt = null;
+
+        //gets meta data from table asked for
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + table);
+        ResultSetMetaData metaData = rs.getMetaData();
+        String[] columns = new String[metaData.getColumnCount()];
+
+        //puts names into string for later use.
+        for (int x = 0; x < metaData.getColumnCount(); x++){
+            columns[x] = metaData.getColumnName(x + 1);
+            //System.out.println(columns[x]);
+        }
+
+        String markerTagString = metaData.getColumnName(markerColumnTag);
 
         //condition for table selection.
         if(table.equals(RECOGNIZED_TABLES[0]) || (table.equals(RECOGNIZED_TABLES[1]) ||
@@ -44,16 +60,16 @@ public class MySQLHandler {
 
             switch(function){
                 case "add":
-                    table_add(table, con, sqlValuesPassenger_Manifest);
+                    table_add(table, con, sqlValues);
                     break;
                 case "edit":
-                    table_edit(table, statement, con, sqlValuesPassenger_Manifest);
+                    table_edit(table, con, sqlValues, columns, marker, markerTagString);
                     break;
                 case "remove":
                     table_remove(table, statement, con);
                     break;
                 case "view":
-                    table_view(table, statement, con);
+                    table_view(table, statement, con, sqlValues);
                     break;
                 default:
                     break;
@@ -64,7 +80,7 @@ public class MySQLHandler {
             IO io = new IO();
 
             String newInput = io.lineInput();
-            connect(newInput, function, sqlValuesPassenger_Manifest);
+            connect(newInput, function, sqlValues, marker, markerColumnTag);
         }
 
         con.close();
@@ -92,9 +108,9 @@ public class MySQLHandler {
                     + "(?,?,?,?,?)";
 
             stmt = con.prepareStatement(insertStatement);
-            stmt.setString(1, sqlValues.getPassengerFirstName());
-            stmt.setString(2, sqlValues.getPassengerLastName());
-            stmt.setString(3, sqlValues.getPassengerPassportNumber());
+            stmt.setString(1, sqlValues.getPassengerFirstName().toUpperCase());
+            stmt.setString(2, sqlValues.getPassengerLastName().toUpperCase());
+            stmt.setString(3, sqlValues.getPassengerPassportNumber().toUpperCase());
             stmt.setString(4, sqlValues.getPassengerSeatAssignment());
             stmt.setString(5, sqlValues.getAdditonalRequests());
 
@@ -107,29 +123,53 @@ public class MySQLHandler {
 
     /**
      * table_edit() - method that allows for editing of database data
+     *
+     * Uses Marker and marker value to ditate where the ENTIRE query should be modified. Make sure passenger has
+     * correct values otherwise huge problems can arise.
      * @param table String
-     * @param statement Statement
      * @param con Connection
-     * @param sqlValuesPassenger_Manifest
+     * @param sqlValues Passenger
+     * @param columns String[]
+     * @param markerValue String
+     * @param marker String
      */
-    public void table_edit(String table, Statement statement, Connection con, Passenger sqlValuesPassenger_Manifest){
+    public void table_edit(String table, Connection con, Passenger sqlValues,
+                           String[] columns, String markerValue, String marker){
         System.out.println("in edit");
         try {
-            statement = con.createStatement();
-            String marker;
 
+            StringBuilder sqlQuery = new StringBuilder();
+
+            for (String column : columns) {
+                sqlQuery.append(column);
+                sqlQuery.append("= ?, ");
+            }
+
+            sqlQuery.delete(sqlQuery.length() - 2, sqlQuery.length() - 1);
+
+            System.out.println(sqlQuery);
             //get information from sql server
 
             String sqlStmt = "UPDATE "
                     + table
                     + " SET "
-                    + "Airplane_ID = '000-HHH'"
-                    +" WHERE Airplane_ID = '123-HHH' ";
+                    + sqlQuery //5 ?'s
+                    +" WHERE "
+                    + marker + " = ?";
 
+            PreparedStatement stmt = con.prepareStatement(sqlStmt);
+            stmt.setString(1, sqlValues.getPassengerFirstName().toUpperCase());
+            stmt.setString(2, sqlValues.getPassengerLastName().toUpperCase());
+            stmt.setString(3, sqlValues.getPassengerPassportNumber().toUpperCase());
+            stmt.setString(4, sqlValues.getPassengerSeatAssignment());
+            stmt.setString(5, sqlValues.getAdditonalRequests());
+            stmt.setString(6, markerValue);
+
+            stmt.executeUpdate();
             //todo make editing more powerful, or just do a delete then re-add
             //todo update table edit with preparedStatement method. Along with other methods
 
-            statement.executeUpdate(sqlStmt);
+            //statement.executeUpdate(sqlStmt);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,7 +209,7 @@ public class MySQLHandler {
      * @param statement Statement
      * @param con Connection
      */
-    public void table_view(String table, Statement statement, Connection con){
+    public void table_view(String table, Statement statement, Connection con, Passenger passenger){
         System.out.println("in view");
         //create view
 
@@ -179,6 +219,14 @@ public class MySQLHandler {
             String sqlStmt = "SELECT * FROM " + table;
 
             ResultSet resultSet = statement.executeQuery(sqlStmt);
+
+            System.out.println("Departure Location: " + passenger.getPassengerDepartureLocation());
+            System.out.println("Arrival Location: " + passenger.getPassengerArrivalLocation());
+
+            for(int x = 0; x < resultSet.getMetaData().getColumnCount(); x++){
+                System.out.println(resultSet.getMetaData().getColumnName(x));
+                System.out.println("\t" + resultSet.getObject(x));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -40,18 +40,40 @@ public class IO {
         *   -Seat Descriptions
         *   -Passenger Manifest*/
 
-        Passenger passenger = new Passenger("Raphael", "Miller", "AB0123456", null, null);
+        Passenger passenger = new Passenger("Joey", "Calzone", "FL5635462", null, null, null);
+
+        passenger.setPassengerDepartureLocation("Miami");
+        passenger.setPassengerArrivalLocation("New York");
+
+        Passenger updatePassengerQuery = new Passenger("Raphael", "Miller", "AB0123456", "1A", null, null);
 
         MySQLHandler sqlHandler = new MySQLHandler();
 
         String table = "Passenger_Manifest";
-        String sqlValueToChange = "Airplane_ID";
-        String valueTomark = "Airplane_ID";
+        String marker = "AB0123456";
+        int markerColumnTag = 3;
 
-        String function = "edit";
+        String function = "view";
 
-        //String sqlValuesFleet_Manifest = "'111-HHH',  '747-8', 9800, 400, 1, 1";
-        PreparedStatement insertPassenger = null;
+
+        /*SQLHandler preConditions --
+        *   --Add requires Database table and values
+        *   --edit requires database table and markers*/
+        try {
+            sqlHandler.connect(table, function, passenger, marker, markerColumnTag);
+        } catch (ClassNotFoundException | SQLException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+
+        //view Flight information from Mysql
+
+        System.out.println("select Flight for passenger");
+        try {
+            sqlHandler.connect("Flight_Path", "view", passenger, null, 1);
+        } catch (ClassNotFoundException | SQLException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+
 
         //todo what happens when the passenger is inserted
 
@@ -59,14 +81,6 @@ public class IO {
         * once the passenger is listed, then the passenger will be given a seat on the plane, once confirmed seat,
         * the passenger table, and the seat table for that airplane will be updated with a unique tag that will connect
         * the two tables together. Proceed to next step of timing and flight path maintenance*/
-
-
-
-        try {
-            sqlHandler.connect(table, function, passenger);
-        } catch (ClassNotFoundException | SQLException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-        }
 
         //-------------------------------------------------------------------------------------------------------------
         //done with my sql, passenger information is placed in mysql for saving,

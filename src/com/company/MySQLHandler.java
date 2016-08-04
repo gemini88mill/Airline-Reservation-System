@@ -234,6 +234,8 @@ public class MySQLHandler {
                 System.out.println();
             }
 
+            String sqlStringSearchforMiami = "select * from Flight_Path where Departure_Location like 'miami';";
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
